@@ -1,3 +1,4 @@
+```bash
 Usage: site-test [options]
 
 Site report generator
@@ -13,3 +14,4 @@ Options:
 -b, --bot Scan only pages included by bots (default: false)
 -o, --out <name> Output file name (default: "out")
 -h, --help display help for command
+```
