@@ -1,6 +1,6 @@
 {
     "name": "site-test",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "",
     "files": [
         "!lib/__tests__/**/*",
@@ -11,7 +11,7 @@
         "my-command": "./bin/index.js"
     },
     "scripts": {
-        "start": "ts-node ./src/cli.ts",
+        "start": "ts-node ./src/index.ts",
         "build": "tsc",
         "clean": "rm -rf ./lib/",
         "prepare": "husky install",
@@ -27,16 +27,20 @@
         "node": ">=12.0"
     },
     "dependencies": {
-        "commander": "^10.0.0"
+        "cheerio": "^1.0.0-rc.12",
+        "commander": "^10.0.0",
+        "robots-parser": "^3.0.1",
+        "sitemapper": "^3.2.6",
+        "superagent": "^8.0.9"
     },
     "devDependencies": {
         "@ryansonshine/commitizen": "^4.2.8",
         "@ryansonshine/cz-conventional-changelog": "^3.3.4",
         "@types/jest": "^29.4.0",
         "@types/node": "^18.14.5",
+        "@types/superagent": "^4.1.16",
         "@typescript-eslint/eslint-plugin": "^5.54.0",
         "@typescript-eslint/parser": "^5.54.0",
-        "chalk": "^5.2.0",
         "eslint": "^8.35.0",
         "eslint-config-prettier": "^8.6.0",
         "eslint-plugin-node": "^11.1.0",
