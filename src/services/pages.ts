@@ -1,7 +1,9 @@
 import { IOptions } from '../types/options'
-import { getRobotsTxtData } from './robotsTxt'
+import { getRobots } from './robotsTxt'
 import { getSitemap } from './sitemap'
 import { getDomainFromUrl } from './url'
+
+import { exit } from 'process'
 
 export async function getPages(options: IOptions) {
     const { domain, page, limit } = options
@@ -14,9 +16,15 @@ export async function getPages(options: IOptions) {
     if (domain) {
         const parsedDomain = getDomainFromUrl(domain)
 
-        const robotsTxt = await getRobotsTxtData(parsedDomain)
+        const robotsTxt = await getRobots(parsedDomain)
 
-        const sitemapUrl = robotsTxt.Sitemap[0]
+        const sitemapUrl = robotsTxt?.getSitemaps()[0]
+
+        if (!sitemapUrl) {
+            console.error('Sitemap not found')
+
+            exit(1)
+        }
 
         const sitemap = await getSitemap(sitemapUrl)
 

@@ -9,7 +9,7 @@
         "bin/**/*"
     ],
     "bin": {
-        "my-command": "bin/index.js"
+        "syki-seo": "bin/index.js"
     },
     "scripts": {
         "start": "ts-node ./src/index.ts",

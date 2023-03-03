@@ -17,7 +17,9 @@ program
     .name('syki-seo')
     .description(
         `Site report generator
-Author: xSyki`
+Author: xSyki
+
+Example: syki-seo -d https://google.com -l 10`
     )
     .version(version)
     .option('-p, --page <page>', 'Specify page')
@@ -34,8 +36,6 @@ const options = program.opts<IOptions>()
 
 async function main() {
     const { domain, page, out, bot } = options
-
-    console.log(options)
 
     testOptions(options)
 
@@ -64,6 +64,8 @@ async function main() {
     const pagesReports = await Promise.all(pagesPromises)
 
     const csv = parseToCSV(pagesReports)
+
+    console.log(`Page scanned: ${pagesToTest.length}`)
 
     fs.writeFileSync(`${out || 'out'}.csv`, csv)
 }

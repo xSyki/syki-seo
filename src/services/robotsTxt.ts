@@ -16,24 +16,6 @@ export const robotsTxtModel: IRobotsTxtModel = {
     Host: [],
 }
 
-export async function getRobotsTxtData(domain: string) {
-    const response = await superagent.get(`${domain}/robots.txt`)
-
-    const parsedRobotsTxtData = response.text
-        .split('\n')
-        .map((row) => row.split(': '))
-        .reduce((acc: IRobotsTxtModel, parsedRow): IRobotsTxtModel => {
-            const [key, value] = parsedRow
-            if (!key || !value) {
-                return acc
-            }
-            acc[key as keyof typeof robotsTxtModel].push(value)
-            return acc
-        }, robotsTxtModel)
-
-    return parsedRobotsTxtData
-}
-
 export async function getRobots(domain?: string) {
     if (!domain) {
         return
