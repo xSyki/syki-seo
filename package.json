@@ -1,5 +1,5 @@
 {
-    "name": "site-test",
+    "name": "syki-seo",
     "version": "1.0.0",
     "description": "Site report generator",
     "files": [
@@ -62,7 +62,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/xSyki/site-test.git"
+        "url": "git+https://github.com/xSyki/syki-seo.git"
     },
     "keywords": [
         "seo",
@@ -74,7 +74,7 @@
     "author": "xSyki",
     "types": "./lib/index.d.ts",
     "bugs": {
-        "url": "https://github.com/xSyki/site-test/issues"
+        "url": "https://github.com/xSyki/syki-seo/issues"
     },
-    "homepage": "https://github.com/xSyki/site-test#readme"
+    "homepage": "https://github.com/xSyki/syki-seo#readme"
 }

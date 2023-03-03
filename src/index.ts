@@ -14,7 +14,7 @@ const version: string = packageJson.version
 const program = new Command()
 
 program
-    .name('site-test')
+    .name('syki-seo')
     .description(
         `Site report generator
 Author: xSyki`
