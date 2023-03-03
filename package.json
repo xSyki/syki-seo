@@ -1,14 +1,14 @@
 {
     "name": "site-test",
     "version": "1.0.0",
-    "description": "",
+    "description": "Site report generator",
     "files": [
         "!lib/__tests__/**/*",
         "lib/**/*",
         "bin/**/*"
     ],
     "bin": {
-        "my-command": "./bin/index.js"
+        "my-command": "bin/index.js"
     },
     "scripts": {
         "start": "ts-node ./src/index.ts",
@@ -24,7 +24,7 @@
     },
     "license": "MIT",
     "engines": {
-        "node": ">=12.0"
+        "node": ">=19.0"
     },
     "dependencies": {
         "cheerio": "^1.0.0-rc.12",
@@ -55,5 +55,26 @@
     },
     "lint-staged": {
         "*.ts": "eslint --cache --cache-location .eslintcache --fix"
-    }
+    },
+    "main": "lib/index.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/xSyki/site-test.git"
+    },
+    "keywords": [
+        "seo",
+        "tester",
+        "site",
+        "test",
+        "web scraper"
+    ],
+    "author": "xSyki",
+    "types": "./lib/index.d.ts",
+    "bugs": {
+        "url": "https://github.com/xSyki/site-test/issues"
+    },
+    "homepage": "https://github.com/xSyki/site-test#readme"
 }

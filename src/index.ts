@@ -16,8 +16,8 @@ const program = new Command()
 program
     .name('site-test')
     .description(
-        `CLI to site report generator
-Author: Syki`
+        `Site report generator
+Author: xSyki`
     )
     .version(version)
     .option('-p, --page <page>', 'Specify page')
