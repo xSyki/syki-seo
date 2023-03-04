@@ -1,7 +1,7 @@
 import { Command } from 'commander'
 import { testOptions } from './services/testOptions'
 import { IOptions } from './types/options'
-import fs from 'fs'
+import { readFileSync, writeFileSync } from 'fs'
 import { getPages } from './services/pages'
 import { parseToCSV } from './services/csv'
 import { getPageReport } from './services/report'
@@ -19,22 +19,33 @@ program
         `Site report generator
 Author: xSyki
 
-Example: syki-seo -d https://google.com -l 10`
+Example: syki-seo -d https://google.com -l 10 -tt -td -s`
     )
     .version(version)
+    .option('-c, --config <page>', 'Specify config from file(.json)')
     .option('-p, --page <page>', 'Specify page')
     .option('-d, --domain <domain>', 'Specify domain')
-    .option('-l, --limit <limit>', 'Limit')
-    .option('-t, --title', 'Enable title test', true)
-    .option('-d, --description', 'Enable description test', true)
+    .option('-l, --limit <limit>', 'Limit page to scan')
+    .option('-s, --status', 'Include status code in report', false)
+    .option('-tt, --title', 'Enable title test', false)
+    .option('-td, --description', 'Enable description test', false)
     .option('-b, --bot', 'Scan only pages included by bots', false)
     .option('-o, --out <name>', 'Output file name', 'out')
 
 program.parse(process.argv)
 
-const options = program.opts<IOptions>()
+let options = program.opts<IOptions>()
 
-async function main() {
+if (options.config) {
+    const rawConfig = JSON.parse(readFileSync(options.config, 'utf-8'))
+
+    if (rawConfig) {
+        options = { ...options, ...rawConfig }
+        console.log(options)
+    }
+}
+
+async function main(options: IOptions) {
     const { domain, page, out, bot } = options
 
     testOptions(options)
@@ -67,7 +78,7 @@ async function main() {
 
     console.log(`Page scanned: ${pagesToTest.length}`)
 
-    fs.writeFileSync(`${out || 'out'}.csv`, csv)
+    writeFileSync(`${out || 'out'}.csv`, csv)
 }
 
-main()
+main(options)

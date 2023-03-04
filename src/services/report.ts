@@ -10,6 +10,8 @@ export async function getPageReport(url: string, options?: IOptions) {
 
         const $ = load(text)
 
+        const statusReport = options?.status ? { status } : {}
+
         const title = options?.title ? { title: testTitles($) } : {}
 
         const description = options?.description
@@ -19,7 +21,7 @@ export async function getPageReport(url: string, options?: IOptions) {
         return {
             passed: didPass(status, { ...title, ...description }),
             url,
-            status,
+            ...statusReport,
             ...title,
             ...description,
         }
