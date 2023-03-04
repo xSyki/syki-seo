@@ -6,6 +6,7 @@ export interface IOptions {
     status?: boolean
     title?: boolean
     description?: boolean
+    filter?: boolean
     out?: string
     bot?: boolean
 }

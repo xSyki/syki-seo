@@ -30,6 +30,7 @@ Example: syki-seo -d https://google.com -l 10 -tt -td -s`
     .option('-tt, --title', 'Enable title test', false)
     .option('-td, --description', 'Enable description test', false)
     .option('-b, --bot', 'Scan only pages included by bots', false)
+    .option('-f, --filter', 'Filter pages that passed tests', false)
     .option('-o, --out <name>', 'Output file name', 'out')
 
 program.parse(process.argv)
@@ -41,12 +42,11 @@ if (options.config) {
 
     if (rawConfig) {
         options = { ...options, ...rawConfig }
-        console.log(options)
     }
 }
 
 async function main(options: IOptions) {
-    const { domain, page, out, bot } = options
+    const { domain, page, out, bot, filter } = options
 
     testOptions(options)
 
@@ -74,7 +74,9 @@ async function main(options: IOptions) {
 
     const pagesReports = await Promise.all(pagesPromises)
 
-    const csv = parseToCSV(pagesReports)
+    const csv = parseToCSV(
+        pagesReports.filter((report) => !filter || !report.passed)
+    )
 
     console.log(`Page scanned: ${pagesToTest.length}`)
 
