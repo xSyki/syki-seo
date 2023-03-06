@@ -23,6 +23,11 @@ Example: syki-seo -d https://google.com -l 10 -tt -td -s`
     )
     .version(version)
     .option('-c, --config <page>', 'Specify config from file(.json)')
+    .option(
+        '-t, --template <template>',
+        'Template written by you with path or name defined earlier.',
+        'basic'
+    )
     .option('-p, --page <page>', 'Specify page')
     .option('-d, --domain <domain>', 'Specify domain')
     .option('-l, --limit <limit>', 'Limit page to scan')
