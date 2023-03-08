@@ -32,8 +32,6 @@ Example: syki-seo -d https://google.com -l 10 -tt -td -s`
     .option('-d, --domain <domain>', 'Specify domain')
     .option('-l, --limit <limit>', 'Limit page to scan')
     .option('-s, --status', 'Include status code in report', false)
-    .option('-tt, --title', 'Enable title test', false)
-    .option('-td, --description', 'Enable description test', false)
     .option('-b, --bot', 'Scan only pages included by bots', false)
     .option('-f, --filter', 'Filter pages that passed tests', false)
     .option('-o, --out <name>', 'Output file name', 'out')
