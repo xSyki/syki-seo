@@ -31,7 +31,7 @@ export async function getPageReport(
             ...testsResults,
         }
     } catch (e) {
-        console.log(`Tests failed: ${e}`)
+        console.error(`Tests failed: ${e}`)
         return { passed: false, url }
     }
 }

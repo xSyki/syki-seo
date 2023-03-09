@@ -30,10 +30,17 @@ Options:
 
 ## Want to make your own tests?
 
-1. Make a fork
-2. Add your own template in /src/templates
-3. Add your own tests
-4. Run template by npm start -- -d https://www.google.com -t <your-template-name>
+1. Create js file with exported test functions(every function get $ which is CheerioAPI, really similar to jquery)
+
+```js
+module.exports = {
+    titleContent: ($) => {
+        return $('title').text()
+    },
+}
+```
+
+2. Run template by npx syki-seo -d https://www.google.com -t /template.js
 
 ## Development
 
