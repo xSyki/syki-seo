@@ -1,5 +1,6 @@
 export interface IOptions {
     config?: string
+    template: string
     domain?: string
     page?: string
     limit?: number

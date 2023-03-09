@@ -1,6 +1,6 @@
 import { CheerioAPI } from 'cheerio'
 
-export function testDescription($: CheerioAPI) {
+function isDescriptionLengthCorrect($: CheerioAPI) {
     const description = $('meta[name="description"]')
 
     if (!description.length) {
@@ -15,3 +15,5 @@ export function testDescription($: CheerioAPI) {
 
     return false
 }
+
+export default isDescriptionLengthCorrect

@@ -5,6 +5,32 @@ import { getDomainFromUrl } from './url'
 
 import { exit } from 'process'
 
+export async function getPagesToTest(options: IOptions) {
+    const { domain, page, bot } = options
+
+    let pagesToTest: string[] = []
+
+    if (domain) {
+        const robots = await getRobots(domain)
+
+        pagesToTest = ((await getPages(options)) as string[]).filter(
+            (page) => !bot || robots?.isAllowed(page)
+        )
+    }
+
+    if (page) {
+        pagesToTest = [page]
+    }
+
+    if (!pagesToTest?.length) {
+        console.error('No pages found')
+
+        exit(1)
+    }
+
+    return pagesToTest
+}
+
 export async function getPages(options: IOptions) {
     const { domain, page, limit } = options
 

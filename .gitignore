@@ -64,6 +64,9 @@ out
 dist
 
 .cache/
+.DS_Store
 
 lib/
 config.json
+
+out.csv

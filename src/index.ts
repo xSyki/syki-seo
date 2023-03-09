@@ -1,12 +1,14 @@
 import { Command } from 'commander'
-import { testOptions } from './services/testOptions'
+import { testOptions } from './utils/testOptions'
 import { IOptions } from './types/options'
 import { readFileSync, writeFileSync } from 'fs'
-import { getPages } from './services/pages'
-import { parseToCSV } from './services/csv'
-import { getPageReport } from './services/report'
+import { getPages, getPagesToTest } from './utils/pages'
+import { parseToCSV } from './utils/csv'
+import { getPageReport } from './utils/report'
+import { exit } from 'process'
 
-import { getRobots } from './services/robotsTxt'
+import { getRobots } from './utils/robotsTxt'
+import { getTestsTemplate } from './utils/template'
 
 const packageJson = require('../package.json')
 const version: string = packageJson.version
@@ -19,16 +21,19 @@ program
         `Site report generator
 Author: xSyki
 
-Example: syki-seo -d https://google.com -l 10 -tt -td -s`
+Example: syki-seo -d https://google.com -l 10 -t basic -s`
     )
     .version(version)
     .option('-c, --config <page>', 'Specify config from file(.json)')
+    .option(
+        '-t, --template <template>',
+        'Template written by you with path or name defined earlier.',
+        'basic'
+    )
     .option('-p, --page <page>', 'Specify page')
     .option('-d, --domain <domain>', 'Specify domain')
     .option('-l, --limit <limit>', 'Limit page to scan')
     .option('-s, --status', 'Include status code in report', false)
-    .option('-tt, --title', 'Enable title test', false)
-    .option('-td, --description', 'Enable description test', false)
     .option('-b, --bot', 'Scan only pages included by bots', false)
     .option('-f, --filter', 'Filter pages that passed tests', false)
     .option('-o, --out <name>', 'Output file name', 'out')
@@ -46,30 +51,16 @@ if (options.config) {
 }
 
 async function main(options: IOptions) {
-    const { domain, page, out, bot, filter } = options
+    const { out, filter } = options
 
     testOptions(options)
 
-    let pagesToTest: string[] = []
+    const pagesToTest = await getPagesToTest(options)
 
-    if (domain) {
-        const robots = await getRobots(domain)
-
-        pagesToTest = ((await getPages(options)) as string[]).filter(
-            (page) => !bot || robots?.isAllowed(page)
-        )
-    }
-
-    if (page) {
-        pagesToTest = [page]
-    }
-
-    if (!pagesToTest?.length) {
-        console.error('No pages found')
-    }
+    const testsTemplate = getTestsTemplate(options)
 
     const pagesPromises = pagesToTest.map((page) =>
-        getPageReport(page, options)
+        getPageReport(page, options, testsTemplate)
     )
 
     const pagesReports = await Promise.all(pagesPromises)
