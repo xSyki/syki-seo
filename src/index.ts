@@ -2,11 +2,13 @@ import { Command } from 'commander'
 import { testOptions } from './utils/testOptions'
 import { IOptions } from './types/options'
 import { readFileSync, writeFileSync } from 'fs'
-import { getPages } from './utils/pages'
+import { getPages, getPagesToTest } from './utils/pages'
 import { parseToCSV } from './utils/csv'
 import { getPageReport } from './utils/report'
+import { exit } from 'process'
 
 import { getRobots } from './utils/robotsTxt'
+import { getTestsTemplate } from './utils/template'
 
 const packageJson = require('../package.json')
 const version: string = packageJson.version
@@ -49,30 +51,16 @@ if (options.config) {
 }
 
 async function main(options: IOptions) {
-    const { domain, page, out, bot, filter } = options
+    const { out, filter } = options
 
     testOptions(options)
 
-    let pagesToTest: string[] = []
+    const pagesToTest = await getPagesToTest(options)
 
-    if (domain) {
-        const robots = await getRobots(domain)
-
-        pagesToTest = ((await getPages(options)) as string[]).filter(
-            (page) => !bot || robots?.isAllowed(page)
-        )
-    }
-
-    if (page) {
-        pagesToTest = [page]
-    }
-
-    if (!pagesToTest?.length) {
-        console.error('No pages found')
-    }
+    const testsTemplate = getTestsTemplate(options)
 
     const pagesPromises = pagesToTest.map((page) =>
-        getPageReport(page, options)
+        getPageReport(page, options, testsTemplate)
     )
 
     const pagesReports = await Promise.all(pagesPromises)
