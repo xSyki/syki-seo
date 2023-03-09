@@ -19,7 +19,7 @@ program
         `Site report generator
 Author: xSyki
 
-Example: syki-seo -d https://google.com -l 10 -tt -td -s`
+Example: syki-seo -d https://google.com -l 10 -t basic -s`
     )
     .version(version)
     .option('-c, --config <page>', 'Specify config from file(.json)')
