@@ -1,12 +1,20 @@
 import superagent from 'superagent'
 import { load } from 'cheerio'
 import { IOptions } from '../types/options'
-import { TestResult } from '../types/test'
+import { Template, TestResult } from '../types/test'
+import { exit } from 'process'
 
 export async function getPageReport(url: string, options: IOptions) {
     const { template } = options
 
-    const templateTests = require(`../../templates/${template}.ts`).default
+    let templateTests: Template = {}
+
+    try {
+        templateTests = require(`../templates/${template}.ts`).default
+    } catch {
+        console.error('Can not find module')
+        exit(1)
+    }
 
     try {
         const { status, text } = await superagent.get(url)
@@ -30,7 +38,8 @@ export async function getPageReport(url: string, options: IOptions) {
             ...statusReport,
             ...testsResults,
         }
-    } catch {
+    } catch (e) {
+        console.log(`Tests failed: ${e}`)
         return { passed: false, url }
     }
 }

@@ -1,12 +1,12 @@
 import { Command } from 'commander'
-import { testOptions } from './services/testOptions'
+import { testOptions } from './utils/testOptions'
 import { IOptions } from './types/options'
 import { readFileSync, writeFileSync } from 'fs'
-import { getPages } from './services/pages'
-import { parseToCSV } from './services/csv'
-import { getPageReport } from './services/report'
+import { getPages } from './utils/pages'
+import { parseToCSV } from './utils/csv'
+import { getPageReport } from './utils/report'
 
-import { getRobots } from './services/robotsTxt'
+import { getRobots } from './utils/robotsTxt'
 
 const packageJson = require('../package.json')
 const version: string = packageJson.version

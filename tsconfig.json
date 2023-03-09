@@ -9,5 +9,5 @@
         "declaration": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["src/**/*.ts", "tests/**/*.ts", "templates/**/*.ts"]
+    "include": ["src/**/*.ts", "src/tests/**/*.ts", "templates/**/*.ts"]
 }
