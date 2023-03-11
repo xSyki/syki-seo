@@ -17,7 +17,7 @@ program
         `Site report generator
 Author: xSyki
 
-Example: syki-seo -d https://google.com -l 10 -t basic -s`
+Example: syki-seo https://google.com -l 10 -s`
     )
     .version(version)
     .argument('<url>', 'Specify url')
