@@ -3,13 +3,13 @@ import { CheerioAPI } from 'cheerio'
 function isTitleLengthCorrect($: CheerioAPI) {
     const title = $('title')
 
-    if (!title.length) {
+    if (title.length === 0 && title.length > 1) {
         return false
     }
 
-    const content = title[0].attribs.content
+    const content = title.text()
 
-    if (content.length > 70 && content.length < 160) {
+    if (content.length > 0 && content.length < 70) {
         return true
     }
 

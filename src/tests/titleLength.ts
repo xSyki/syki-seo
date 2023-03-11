@@ -4,7 +4,7 @@ function titleLength($: CheerioAPI) {
     const titleTags = $('title')
     const title = titleTags.text()
 
-    if (!title || titleTags.length > 1) {
+    if (titleTags.length === 0 || titleTags.length > 1) {
         return false
     }
 

@@ -3,7 +3,7 @@ import { CheerioAPI } from 'cheerio'
 function isDescriptionLengthCorrect($: CheerioAPI) {
     const description = $('meta[name="description"]')
 
-    if (!description.length) {
+    if (description.length === 0 || description.length > 1) {
         return false
     }
 
