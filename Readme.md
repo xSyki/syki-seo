@@ -1,30 +1,41 @@
 ## To run
 
 ```bash
-npx syki-seo -d https://google.com -l 10 -t basic -s
+npx syki-seo https://google.com -l 10 -s
+```
+
+## To install
+
+```bash
+npm i -g syki-seo
+
+syki-seo https://google.com -l 10 -s
 ```
 
 ## Documentation
 
 ```bash
-Usage: syki-seo [options]
+Usage: syki-seo [options] <url>
 
 Site report generator
 Author: xSyki
 
-Example: syki-seo -d https://google.com -l 10 -t basic -s
+Example: syki-seo https://google.com -l 10 -s
+
+Arguments:
+  url                        Specify url
 
 Options:
   -V, --version              output the version number
   -c, --config <page>        Specify config from file(.json)
   -t, --template <template>  Template written by you with path or name defined earlier. (default: "basic")
-  -p, --page <page>          Specify page
-  -d, --domain <domain>      Specify domain
+  -p, --page                 Scan only specific page (default: false)
   -l, --limit <limit>        Limit page to scan
   -s, --status               Include status code in report (default: false)
   -b, --bot                  Scan only pages included by bots (default: false)
   -f, --filter               Filter pages that passed tests (default: false)
   -o, --out <name>           Output file name (default: "out")
+  -fo, --format <format>     Specify format(csv or json) (default: "csv")
   -h, --help                 display help for command
 ```
 
@@ -40,11 +51,8 @@ module.exports = {
 }
 ```
 
-2. Run template by npx syki-seo -d https://www.google.com -t /template.js
+2. Run template by npx syki-seo https://www.google.com -t /template.js
 
-## Development
+## Contribute
 
-```bash
-npm i
-npm start -- -d https://google.com -l 10 -tt -td -s
-```
+All contributions are welcome. General instructions on _how_ to contribute are in [CONTRIBUTING](CONTRIBUTING.md).

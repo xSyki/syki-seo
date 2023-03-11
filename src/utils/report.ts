@@ -2,12 +2,13 @@ import superagent from 'superagent'
 import { load } from 'cheerio'
 import { IOptions } from '../types/options'
 import { Template, TestResult } from '../types/test'
+import { IReport } from '../types/report'
 
 export async function getPageReport(
     url: string,
     options: IOptions,
     testsTemplate: Template
-) {
+): Promise<IReport> {
     try {
         const { status, text } = await superagent.get(url)
 

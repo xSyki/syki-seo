@@ -1,8 +1,8 @@
 export interface IOptions {
+    url: string
     config?: string
     template: string
-    domain?: string
-    page?: string
+    page?: boolean
     limit?: number
     status?: boolean
     title?: boolean
@@ -10,4 +10,5 @@ export interface IOptions {
     filter?: boolean
     out?: string
     bot?: boolean
+    format: string
 }

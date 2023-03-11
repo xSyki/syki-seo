@@ -11,7 +11,9 @@ export const getTestsTemplate = (options: IOptions) => {
         if (template.includes('.')) {
             testsTemplate = require(process.cwd() + template)
         } else {
-            testsTemplate = require(`../templates/${template}.js`).default
+            testsTemplate = require(`../templates/${template}.${
+                process.env.NODE_ENV === 'development' ? 'ts' : 'js'
+            }`).default
         }
     } catch (e) {
         console.error('Can not find module', e)

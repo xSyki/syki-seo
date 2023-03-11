@@ -16,11 +16,7 @@ export const robotsTxtModel: IRobotsTxtModel = {
     Host: [],
 }
 
-export async function getRobots(domain?: string) {
-    if (!domain) {
-        return
-    }
-
+export async function getRobots(domain: string) {
     const parsedDomain = getDomainFromUrl(domain)
 
     const { text } = await superagent.get(`${domain}/robots.txt`)
