@@ -6,12 +6,12 @@ import { getDomainFromUrl } from './url'
 import { exit } from 'process'
 
 export async function getPagesToTest(options: IOptions) {
-    const { domain, page, bot } = options
+    const { url, page, bot } = options
 
     let pagesToTest: string[] = []
 
-    if (domain) {
-        const robots = await getRobots(domain)
+    if (url) {
+        const robots = await getRobots(url)
 
         pagesToTest = ((await getPages(options)) as string[]).filter(
             (page) => !bot || robots?.isAllowed(page)
@@ -19,7 +19,7 @@ export async function getPagesToTest(options: IOptions) {
     }
 
     if (page) {
-        pagesToTest = [page]
+        pagesToTest = [url]
     }
 
     if (!pagesToTest?.length) {
@@ -32,30 +32,26 @@ export async function getPagesToTest(options: IOptions) {
 }
 
 export async function getPages(options: IOptions) {
-    const { domain, page, limit } = options
+    const { url, page, limit } = options
 
     if (page) {
-        const url = new URL(page)
-        return [url]
+        const parsedUrl = new URL(url)
+        return [parsedUrl]
     }
 
-    if (domain) {
-        const parsedDomain = getDomainFromUrl(domain)
+    const parsedDomain = getDomainFromUrl(url)
 
-        const robotsTxt = await getRobots(parsedDomain)
+    const robotsTxt = await getRobots(parsedDomain)
 
-        const sitemapUrl = robotsTxt?.getSitemaps()[0]
+    const sitemapUrl = robotsTxt?.getSitemaps()[0]
 
-        if (!sitemapUrl) {
-            console.error('Sitemap not found')
+    if (!sitemapUrl) {
+        console.error('Sitemap not found')
 
-            exit(1)
-        }
-
-        const sitemap = await getSitemap(sitemapUrl)
-
-        return sitemap.sites.splice(0, limit || sitemap.sites.length - 1)
+        exit(1)
     }
 
-    return
+    const sitemap = await getSitemap(sitemapUrl)
+
+    return sitemap.sites.splice(0, limit || sitemap.sites.length - 1)
 }
