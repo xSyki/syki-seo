@@ -4,6 +4,14 @@
 npx syki-seo https://google.com -l 10 -s
 ```
 
+## To install
+
+```bash
+npm i -g syki-seo
+
+syki-seo https://google.com -l 10 -s
+```
+
 ## Documentation
 
 ```bash
@@ -45,9 +53,6 @@ module.exports = {
 
 2. Run template by npx syki-seo https://www.google.com -t /template.js
 
-## Development
+## Contribute
 
-```bash
-npm i
-npm start -- https://google.com -l 10 -s
-```
+All contributions are welcome. General instructions on _how_ to contribute are in [CONTRIBUTING](CONTRIBUTING.md).
