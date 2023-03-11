@@ -1,10 +1,10 @@
 import { Command } from 'commander'
 import { IOptions } from './types/options'
-import { readFileSync, writeFileSync } from 'fs'
+import { readFileSync } from 'fs'
 import { getPagesToTest } from './utils/pages'
-import { parseToCSV } from './utils/csv'
 import { getPageReport } from './utils/report'
 import { getTestsTemplate } from './utils/template'
+import { saveReport } from './utils/saveReport'
 
 const packageJson = require('../package.json')
 const version: string = packageJson.version
@@ -33,6 +33,7 @@ Example: syki-seo -d https://google.com -l 10 -t basic -s`
     .option('-b, --bot', 'Scan only pages included by bots', false)
     .option('-f, --filter', 'Filter pages that passed tests', false)
     .option('-o, --out <name>', 'Output file name', 'out')
+    .option('-fo, --format <format>', 'Specify format(csv or json)', 'csv')
 
 program.parse(process.argv)
 
@@ -50,8 +51,6 @@ if (options.config) {
 }
 
 async function main(options: IOptions) {
-    const { out, filter } = options
-
     const pagesToTest = await getPagesToTest(options)
 
     const testsTemplate = getTestsTemplate(options)
@@ -62,13 +61,9 @@ async function main(options: IOptions) {
 
     const pagesReports = await Promise.all(pagesPromises)
 
-    const csv = parseToCSV(
-        pagesReports.filter((report) => !filter || !report.passed)
-    )
+    saveReport(options, pagesReports)
 
     console.log(`Page scanned: ${pagesToTest.length}`)
-
-    writeFileSync(`${out || 'out'}.csv`, csv)
 }
 
 main(options)

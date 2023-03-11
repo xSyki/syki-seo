@@ -10,4 +10,5 @@ export interface IOptions {
     filter?: boolean
     out?: string
     bot?: boolean
+    format: string
 }
