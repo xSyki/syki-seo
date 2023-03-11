@@ -1,3 +1,10 @@
+# Welcome to syki-seo 👋
+
+Quickly scan your website with ready-made tests or write individual tests.
+
+[NPM](https://www.npmjs.com/package/syki-seo)
+[GITHUB](https://github.com/xSyki/syki-seo)
+
 ## To run
 
 ```bash
@@ -28,7 +35,7 @@ Arguments:
 Options:
   -V, --version              output the version number
   -c, --config <page>        Specify config from file(.json)
-  -t, --template <template>  Template written by you with path or name defined earlier. (default: "basic")
+  -t, --template <template>  Template written by you with path or name defined earlier. Options: basic, basicDetailed and h1 (default: "basic")
   -p, --page                 Scan only specific page (default: false)
   -l, --limit <limit>        Limit page to scan
   -s, --status               Include status code in report (default: false)
