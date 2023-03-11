@@ -1,6 +1,6 @@
 import { CheerioAPI } from 'cheerio'
 
-function isDescriptionLengthCorrect($: CheerioAPI) {
+function isTitleLengthCorrect($: CheerioAPI) {
     const title = $('title')
 
     if (!title.length) {
@@ -16,4 +16,4 @@ function isDescriptionLengthCorrect($: CheerioAPI) {
     return false
 }
 
-export default isDescriptionLengthCorrect
+export default isTitleLengthCorrect
