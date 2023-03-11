@@ -12,8 +12,9 @@
         "syki-seo": "bin/index.js"
     },
     "scripts": {
-        "start": "ts-node ./src/index.ts",
+        "start": "NODE_ENV=development ts-node ./src/index.ts",
         "build": "tsc",
+        "serve": "node ./lib/index.js ",
         "clean": "rm -rf ./lib/",
         "prepare": "husky install",
         "test:watch": "jest --watch",

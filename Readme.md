@@ -46,5 +46,5 @@ module.exports = {
 
 ```bash
 npm i
-npm start -- -d https://google.com -l 10 -tt -td -s
+npm start -- -d https://google.com -l 10 -t basic -s
 ```
