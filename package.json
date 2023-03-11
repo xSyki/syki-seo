@@ -19,7 +19,7 @@
         "prepare": "husky install",
         "test:watch": "jest --watch",
         "test": "jest --coverage",
-        "typecheck": "tsc --noEmit",
+        "type-check": "tsc --noEmit",
         "lint": "eslint \"./src/**/*.{js,,ts,,json}\"",
         "lint-fix": "eslint --fix \"./src/**/*.{js,,ts,,json}\"",
         "format": "prettier --write \"./src/**/*.{js,ts,json,md}\""
