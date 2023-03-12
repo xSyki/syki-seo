@@ -1,9 +1,9 @@
 import { Command } from 'commander'
 import { IOptions } from './types/options'
 import { readFileSync } from 'fs'
-import { getPagesToTest } from './utils/pages'
-import { getPageReport } from './utils/report'
-import { getTestsTemplate } from './utils/template'
+import { getPagesToTest } from './utils/getPagesToTest'
+import { getPageReport } from './utils/getPageReport'
+import { getTestsTemplate } from './utils/ getTestsTemplate'
 import { saveReport } from './utils/saveReport'
 import logger from './utils/logger'
 
