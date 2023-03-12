@@ -3,6 +3,7 @@ import { load } from 'cheerio'
 import { IOptions } from '../types/options'
 import { Template, TestResult } from '../types/test'
 import { IReport } from '../types/report'
+import logger from './logger'
 
 export async function getPageReport(
     url: string,
@@ -32,7 +33,7 @@ export async function getPageReport(
             ...testsResults,
         }
     } catch (e) {
-        console.error(`Tests failed: ${e}`)
+        logger.error(`Tests failed: ${e}`)
         return { passed: false, url }
     }
 }

@@ -5,7 +5,9 @@ import { getPagesToTest } from './utils/pages'
 import { getPageReport } from './utils/report'
 import { getTestsTemplate } from './utils/template'
 import { saveReport } from './utils/saveReport'
+import logger from './utils/logger'
 
+const cliProgress = require('cli-progress')
 const packageJson = require('../package.json')
 const version: string = packageJson.version
 
@@ -35,6 +37,11 @@ Example: syki-seo https://google.com -l 10 -s`
     .option('-o, --out <name>', 'Output file name', 'out')
     .option('-fo, --format <format>', 'Specify format(csv or json)', 'csv')
 
+const progressBar = new cliProgress.SingleBar(
+    {},
+    cliProgress.Presets.shades_classic
+)
+
 program.parse(process.argv)
 
 let options = program.opts<IOptions>()
@@ -53,17 +60,35 @@ if (options.config) {
 async function main(options: IOptions) {
     const pagesToTest = await getPagesToTest(options)
 
+    logger.info(`Pages to scan: ${pagesToTest.length}`)
+
     const testsTemplate = getTestsTemplate(options)
 
+    logger.info(
+        `Tests: ${Object.keys(testsTemplate)
+            .map((key) => key)
+            .join(', ')}`
+    )
+
+    let pagesScanned = 0
+
+    progressBar.start(pagesToTest.length, 0)
+
     const pagesPromises = pagesToTest.map((page) =>
-        getPageReport(page, options, testsTemplate)
+        getPageReport(page, options, testsTemplate).then((data) => {
+            pagesScanned++
+            progressBar.update(pagesScanned)
+            return data
+        })
     )
 
     const pagesReports = await Promise.all(pagesPromises)
 
+    progressBar.stop()
+
     saveReport(options, pagesReports)
 
-    console.log(`Page scanned: ${pagesToTest.length}`)
+    logger.info(`Pages scanned: ${pagesToTest.length}`)
 }
 
 main(options)
