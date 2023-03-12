@@ -29,6 +29,10 @@ Example: syki-seo https://google.com -l 10 -s`
         'Template written by you with path or name defined earlier.',
         'basic'
     )
+    .option(
+        '-tv, --templateVariables <templateVariables>',
+        'Some tests can take variables. Example data structure { "tagsLength": ["code"] }'
+    )
     .option('-p, --page', 'Scan only specific page', false)
     .option('-l, --limit <limit>', 'Limit page to scan')
     .option('-s, --status', 'Include status code in report', false)
@@ -50,7 +54,9 @@ const url = program.processedArgs[0]
 options = { ...options, url }
 
 if (options.config) {
-    const rawConfig = JSON.parse(readFileSync(options.config, 'utf-8'))
+    const rawConfig = JSON.parse(
+        readFileSync(process.cwd() + options.config, 'utf-8')
+    )
 
     if (rawConfig) {
         options = { ...options, ...rawConfig }

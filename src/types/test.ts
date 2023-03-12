@@ -2,7 +2,7 @@ import { CheerioAPI } from 'cheerio'
 
 export type Template = Record<string, TestFunction>
 
-export type TestFunction = ($: CheerioAPI) => TestResult
+export type TestFunction = ($: CheerioAPI, ...args: unknown[]) => TestResult
 
 export type FunctionName = keyof Template
 
