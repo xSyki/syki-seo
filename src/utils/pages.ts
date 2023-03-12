@@ -4,6 +4,7 @@ import { getSitemap } from './sitemap'
 import { getDomainFromUrl } from './url'
 
 import { exit } from 'process'
+import logger from './logger'
 
 export async function getPagesToTest(options: IOptions) {
     const { url, page, bot } = options
@@ -20,10 +21,11 @@ export async function getPagesToTest(options: IOptions) {
 
     if (page) {
         pagesToTest = [url]
+        logger.info(`Page to scan: ${url}`)
     }
 
     if (!pagesToTest?.length) {
-        console.error('No pages found')
+        logger.error('No pages found')
 
         exit(1)
     }
@@ -41,12 +43,14 @@ export async function getPages(options: IOptions) {
 
     const parsedDomain = getDomainFromUrl(url)
 
+    logger.info(`Domain to scan: ${parsedDomain}`)
+
     const robotsTxt = await getRobots(parsedDomain)
 
     const sitemapUrl = robotsTxt?.getSitemaps()[0]
 
     if (!sitemapUrl) {
-        console.error('Sitemap not found')
+        logger.error('Sitemap not found')
 
         exit(1)
     }

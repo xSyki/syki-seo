@@ -11,4 +11,5 @@ export interface IOptions {
     out?: string
     bot?: boolean
     format: string
+    templateVariables?: Record<string, unknown[]>
 }
