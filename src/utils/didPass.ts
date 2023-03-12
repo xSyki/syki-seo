@@ -1,11 +1,11 @@
 import { TestResult } from '../types/test'
 
 export function didPass(status: number, tests?: Record<string, TestResult>) {
-    const haveAllTestsPassed = tests
+    const haveAnyTestFail = tests
         ? Object.keys(tests).some((key) => !tests[key])
-        : true
+        : false
 
-    if (status !== 200 || haveAllTestsPassed) {
+    if (status !== 200 || haveAnyTestFail) {
         return false
     }
 

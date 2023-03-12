@@ -11,7 +11,7 @@ export async function getPageReport(
     options: IOptions,
     testsTemplate: Template
 ): Promise<IReport> {
-    const { templateVariables } = options
+    const { templateVariables, result } = options
 
     try {
         const { status, text } = await superagent.get(url)
@@ -33,7 +33,7 @@ export async function getPageReport(
         )
 
         return {
-            passed: didPass(status, testsResults),
+            ...(result ? { passed: didPass(status, testsResults) } : {}),
             url,
             ...statusReport,
             ...testsResults,

@@ -3,7 +3,7 @@ import { getRobots } from './getRobots'
 
 import { exit } from 'process'
 import logger from './logger'
-import { getPages } from './getpages'
+import { getPages } from './getPages'
 
 export async function getPagesToTest(options: IOptions) {
     const { url, page, bot } = options
