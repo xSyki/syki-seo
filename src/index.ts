@@ -53,6 +53,8 @@ if (options.config) {
 async function main(options: IOptions) {
     const pagesToTest = await getPagesToTest(options)
 
+    console.log(`Pages to scan: ${pagesToTest.length}`)
+
     const testsTemplate = getTestsTemplate(options)
 
     const pagesPromises = pagesToTest.map((page) =>
