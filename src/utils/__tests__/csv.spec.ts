@@ -1,4 +1,4 @@
-import { parseToCSV } from '../csv'
+import { parseToCSV } from '../parseToCSV'
 
 describe('parseToCSV', () => {
     test('should return a CSV string', () => {
