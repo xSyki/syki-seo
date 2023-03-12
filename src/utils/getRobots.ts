@@ -1,5 +1,5 @@
 import superagent from 'superagent'
-import { getDomainFromUrl } from './url'
+import { getDomainFromUrl } from './getDomainFromUrl'
 import robotsParser from 'robots-parser'
 
 interface IRobotsTxtModel {

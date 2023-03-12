@@ -1,7 +1,7 @@
 import { Format } from '../types/format'
 import { IOptions } from '../types/options'
 import { IReport } from '../types/report'
-import { parseToCSV } from './csv'
+import { parseToCSV } from './parseToCSV'
 import { exit } from 'process'
 import { writeFileSync } from 'fs'
 import logger from './logger'

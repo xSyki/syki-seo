@@ -1,9 +1,9 @@
 import { Command } from 'commander'
 import { IOptions } from './types/options'
 import { readFileSync } from 'fs'
-import { getPagesToTest } from './utils/pages'
-import { getPageReport } from './utils/report'
-import { getTestsTemplate } from './utils/template'
+import { getPagesToTest } from './utils/getPagesToTest'
+import { getPageReport } from './utils/getPageReport'
+import { getTestsTemplate } from './utils/getTestsTemplate'
 import { saveReport } from './utils/saveReport'
 import logger from './utils/logger'
 
@@ -26,13 +26,14 @@ Example: syki-seo https://google.com -l 10 -s`
     .option('-c, --config <page>', 'Specify config from file(.json)')
     .option(
         '-t, --template <template>',
-        'Template written by you with path or name defined earlier.',
+        'Template written by you with path or name defined earlier. (basic, basicDetailed, findTag, h1)',
         'basic'
     )
     .option(
         '-tv, --templateVariables <templateVariables>',
         'Some tests can take variables. Example data structure { "tagsLength": ["code"] }'
     )
+    .option('-r, --result', 'Include property passed in the result', false)
     .option('-p, --page', 'Scan only specific page', false)
     .option('-l, --limit <limit>', 'Limit page to scan')
     .option('-s, --status', 'Include status code in report', false)
