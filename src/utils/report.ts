@@ -10,6 +10,8 @@ export async function getPageReport(
     options: IOptions,
     testsTemplate: Template
 ): Promise<IReport> {
+    const { templateVariables } = options
+
     try {
         const { status, text } = await superagent.get(url)
 
@@ -19,7 +21,10 @@ export async function getPageReport(
 
         const testsResults = Object.keys(testsTemplate).reduce(
             (acc: Record<string, TestResult>, testKey) => {
-                acc[testKey] = testsTemplate[testKey]($)
+                acc[testKey] = testsTemplate[testKey](
+                    $,
+                    ...(templateVariables?.[testKey] || [])
+                )
 
                 return acc
             },
