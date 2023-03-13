@@ -30,20 +30,44 @@ Author: xSyki
 Example: syki-seo https://google.com -l 10 -s
 
 Arguments:
-  url                        Specify url
+  url                                           Specify url
 
 Options:
-  -V, --version              output the version number
-  -c, --config <page>        Specify config from file(.json)
-  -t, --template <template>  Template written by you with path or name defined earlier. Options: basic, basicDetailed and h1 (default: "basic")
-  -p, --page                 Scan only specific page (default: false)
-  -l, --limit <limit>        Limit page to scan
-  -s, --status               Include status code in report (default: false)
-  -b, --bot                  Scan only pages included by bots (default: false)
-  -f, --filter               Filter pages that passed tests (default: false)
-  -o, --out <name>           Output file name (default: "out")
-  -fo, --format <format>     Specify format(csv or json) (default: "csv")
-  -h, --help                 display help for command
+  -V, --version                                 output the version number
+  -c, --config <page>                            Specify config from file(.json)
+  -t, --template <template>                     Template written by you with path or name defined earlier. (basic, basicDetailed, findTag) (default: "basic")
+  -tv, --templateVariables <templateVariables>  Some tests can take variables. Example data structure { "tagsLength": ["code"] }
+  -r, --result                                  Include property passed in the result (default: false)
+  -p, --page                                    Scan only specific page (default: false)
+  -l, --limit <limit>                           Limit page to scan
+  -s, --status                                  Include status code in report (default: false)
+  -b, --bot                                     Scan only pages included by bots (default: false)
+  -f, --filter                                   Filter pages that passed tests (default: false)
+  -o, --out <name>                              Output file name (default: "out")
+  -fo, --format <format>                        Specify format(csv or json) (default: "csv")
+  -h, --help                                    display help for command
+```
+
+### Templates
+
+#### basic
+
+tests: isTitleLengthCorrect, isDescriptionLengthCorrect, isH1
+
+#### basicDetailed
+
+tests: titleLength, descriptionLength, h1Length
+
+#### findTag
+
+tests: tagLength
+
+##### Config
+
+```json
+{
+    "tagLength": ["tagName"]
+}
 ```
 
 ## Want to make your own tests?
