@@ -3,12 +3,16 @@ import { load } from 'cheerio'
 import { IOptions } from '../types/options'
 import { Template, TestResult } from '../types/test'
 import { IReport } from '../types/report'
+import logger from './logger'
+import { didPass } from './didPass'
 
 export async function getPageReport(
     url: string,
     options: IOptions,
     testsTemplate: Template
 ): Promise<IReport> {
+    const { templateVariables, result } = options
+
     try {
         const { status, text } = await superagent.get(url)
 
@@ -18,7 +22,10 @@ export async function getPageReport(
 
         const testsResults = Object.keys(testsTemplate).reduce(
             (acc: Record<string, TestResult>, testKey) => {
-                acc[testKey] = testsTemplate[testKey]($)
+                acc[testKey] = testsTemplate[testKey](
+                    $,
+                    ...(templateVariables?.[testKey] || [])
+                )
 
                 return acc
             },
@@ -26,25 +33,13 @@ export async function getPageReport(
         )
 
         return {
-            passed: didPass(status, testsResults),
+            ...(result ? { passed: didPass(status, testsResults) } : {}),
             url,
             ...statusReport,
             ...testsResults,
         }
     } catch (e) {
-        console.error(`Tests failed: ${e}`)
+        logger.error(`Tests failed: ${e}`)
         return { passed: false, url }
     }
-}
-
-export function didPass(status: number, tests?: Record<string, TestResult>) {
-    const haveAllTestsPassed = tests
-        ? Object.keys(tests).some((key) => !tests[key])
-        : true
-
-    if (status !== 200 || haveAllTestsPassed) {
-        return false
-    }
-
-    return true
 }

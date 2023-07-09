@@ -1,9 +1,10 @@
 import { Format } from '../types/format'
 import { IOptions } from '../types/options'
 import { IReport } from '../types/report'
-import { parseToCSV } from './csv'
+import { parseToCSV } from './parseToCSV'
 import { exit } from 'process'
 import { writeFileSync } from 'fs'
+import logger from './logger'
 
 export function saveReport(options: IOptions, pagesReports: IReport[]) {
     const { format, out, filter } = options
@@ -20,7 +21,7 @@ export function saveReport(options: IOptions, pagesReports: IReport[]) {
             data = JSON.stringify(pagesReports, null, 4)
             break
         default:
-            console.error('Format not found')
+            logger.error('Format not found')
             exit(1)
     }
 

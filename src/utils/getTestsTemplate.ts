@@ -1,6 +1,7 @@
 import { IOptions } from '../types/options'
 import { exit } from 'process'
 import { Template } from '../types/test'
+import logger from './logger'
 
 export const getTestsTemplate = (options: IOptions) => {
     const { template } = options
@@ -16,12 +17,12 @@ export const getTestsTemplate = (options: IOptions) => {
             }`).default
         }
     } catch (e) {
-        console.error('Can not find module', e)
+        logger.error('Can not find module', e)
         exit(1)
     }
 
     if (!Object.keys(testsTemplate).length) {
-        console.error('Tests not specified')
+        logger.error('Tests not specified')
         exit(1)
     }
 

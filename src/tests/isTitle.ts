@@ -1,6 +1,6 @@
 import { CheerioAPI } from 'cheerio'
 
-function isTitleLengthCorrect($: CheerioAPI) {
+function isTitle($: CheerioAPI) {
     const lengthOfH1Tags = $('title').length
 
     if (lengthOfH1Tags > 1 || lengthOfH1Tags === 0) {
@@ -10,4 +10,4 @@ function isTitleLengthCorrect($: CheerioAPI) {
     return true
 }
 
-export default isTitleLengthCorrect
+export default isTitle

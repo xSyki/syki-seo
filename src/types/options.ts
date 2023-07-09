@@ -5,10 +5,10 @@ export interface IOptions {
     page?: boolean
     limit?: number
     status?: boolean
-    title?: boolean
-    description?: boolean
     filter?: boolean
     out?: string
     bot?: boolean
     format: string
+    templateVariables?: Record<string, unknown[]>
+    result?: boolean
 }
